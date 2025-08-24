@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from "react";
 
 function App() {
   const [items, setItems] = useState([]);
-  const [form, setForm] = useState({ name: '', type: '', price: '' });
+  const [form, setForm] = useState({ name: "", type: "", price: "" });
 
   const fetchItems = async () => {
     const data = await window.api.getItems();
@@ -17,7 +16,7 @@ function App() {
       type: form.type,
       price: parseFloat(form.price),
     });
-    setForm({ name: '', type: '', price: '' });
+    setForm({ name: "", type: "", price: "" });
     fetchItems();
   };
 
