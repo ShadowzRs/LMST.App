@@ -1,6 +1,23 @@
-.top-header {
+/* SHARED STYLE */
+.dashboard-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+}
+
+/* SIDE MENU */
+.left-Side-Menu {
+  display: flex;
+  flex-direction: column;
+  width: 13%;
+  height: 100vh;
+  padding-top: 20px;
+  background-color: var(--white);
+  border-right: 1px solid var(--border-color);
+}
+/* BODY */
+.dashboard-content {
+  width: 87%;
+  margin: 50px;
   align-items: center;
-  border-bottom: 1px solid var(--border-color-light);
+  justify-content: center;
 }
