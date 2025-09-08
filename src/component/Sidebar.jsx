@@ -1,33 +1,26 @@
 import Logo from "../assets/inventory.png";
+import { Link } from "react-router-dom";
 
 const menuItems = [
   {
     label: "Dashboard",
-    href: "#",
+    href: "/dashboard",
     icon: null,
   },
   {
-    label: "Teams",
+    label: "Inventory",
     children: [
-      { label: "Banned Users", href: "#" },
-      { label: "Calendar", href: "#" },
+      { label: "Items", href: "/inventory" },
+      { label: "Supplier", href: "#" },
     ],
   },
   {
-    label: "Billing",
+    label: "Report",
     href: "#",
   },
   {
-    label: "Invoices",
+    label: "Setting", //Edit quick access,
     href: "#",
-  },
-  {
-    label: "Account",
-    children: [
-      { label: "Details", href: "#" },
-      { label: "Security", href: "#" },
-      { label: "Logout", href: "#" },
-    ],
   },
 ];
 
@@ -59,12 +52,12 @@ function SidebarItem({ item }) {
                 key={index}
                 className="pl-3 rounded-lg hover:bg-[var(--second-bg)]"
               >
-                <a
-                  href={child.href}
+                <Link
+                  to={child.href}
                   className="block rounded-lg py-2 text-base font-medium text-black"
                 >
                   {child.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -75,25 +68,27 @@ function SidebarItem({ item }) {
 
   return (
     <li>
-      <a
-        href={item.href}
+      <Link
+        to={item.href}
         className="block rounded-lg px-4 py-2 text-base font-medium text-black hover:bg-[var(--second-bg)]"
       >
         {item.label}
-      </a>
+      </Link>
     </li>
   );
 }
 
 export default function Sidebar() {
   return (
-    <div className="px-4 py-6 justify-center">
-      <img src={Logo} className="h-21 object-contain mx-auto" />
-      <ul className="mt-6 space-y-1">
-        {menuItems.map((item, index) => (
-          <SidebarItem key={index} item={item} />
-        ))}
-      </ul>
-    </div>
+    <section className="flex flex-col w-[13%] h-screen pt-5 bg-white border-r border-[var(--border-color)]">
+      <div className="px-4 py-6 justify-center">
+        <img src={Logo} className="h-21 object-contain mx-auto" />
+        <ul className="mt-6 space-y-1">
+          {menuItems.map((item, index) => (
+            <SidebarItem key={index} item={item} />
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }
