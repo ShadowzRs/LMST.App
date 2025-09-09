@@ -31,7 +31,7 @@ const Table = ({ columns }) => {
       name: "Guillermo de la Cruz",
       dob: "18/11/1991",
       role: "Familiar/Vampire Hunter",
-      salary: "$0",
+      salary: "$10,000",
     },
   ];
 

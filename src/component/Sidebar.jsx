@@ -1,5 +1,6 @@
+import { useState } from "react";
 import Logo from "../assets/inventory.png";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const menuItems = [
   {
@@ -10,8 +11,8 @@ const menuItems = [
   {
     label: "Inventory",
     children: [
-      { label: "Items", href: "/inventory" },
-      { label: "Supplier", href: "#" },
+      { label: "Items", href: "/inventory/items" },
+      { label: "Supplier", href: "/inventory/supplier" },
     ],
   },
   {
@@ -25,13 +26,29 @@ const menuItems = [
 ];
 
 function SidebarItem({ item }) {
+  const location = useLocation();
+  const isActive = item.href && location.pathname === item.href;
+  const hasActiveChild =
+    item.children &&
+    item.children.some((child) => location.pathname === child.href);
+
+  const [isOpen, setIsOpen] = useState(hasActiveChild);
+
   if (item.children) {
     return (
       <li>
-        <details className="group [&_summary::-webkit-details-marker]:hidden">
+        <details
+          className="group [&_summary::-webkit-details-marker]:hidden"
+          open={isOpen}
+          onToggle={(e) => setIsOpen(e.target.open)}
+        >
           <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-black hover:bg-[var(--second-bg)]">
             <span className="text-base font-medium">{item.label}</span>
-            <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+            <span
+              className={`shrink-0 transition duration-300 ${
+                isOpen ? "rotate-180" : ""
+              }`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="size-5"
@@ -47,19 +64,27 @@ function SidebarItem({ item }) {
             </span>
           </summary>
           <ul className="mt-1 space-y-1 ml-4 pl-1 border-l-2 border-gray-200">
-            {item.children.map((child, index) => (
-              <li
-                key={index}
-                className="pl-3 rounded-lg hover:bg-[var(--second-bg)]"
-              >
-                <Link
-                  to={child.href}
-                  className="block rounded-lg py-2 text-base font-medium text-black"
+            {item.children.map((child, index) => {
+              const isChildActive = location.pathname === child.href;
+              return (
+                <li
+                  key={index}
+                  className={`pl-3 rounded-lg text-black border-2
+                  ${
+                    isChildActive
+                      ? "border-[var(--primary)] bg-white text-[var(--primary)] cursor-default"
+                      : "border-transparent hover:bg-[var(--second-bg)]"
+                  }`}
                 >
-                  {child.label}
-                </Link>
-              </li>
-            ))}
+                  <Link
+                    to={child.href}
+                    className="block rounded-lg py-2 text-base font-medium text-black"
+                  >
+                    {child.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </details>
       </li>
@@ -70,7 +95,12 @@ function SidebarItem({ item }) {
     <li>
       <Link
         to={item.href}
-        className="block rounded-lg px-4 py-2 text-base font-medium text-black hover:bg-[var(--second-bg)]"
+        className={`block rounded-lg px-4 py-2 text-base font-medium text-black border-2
+  ${
+    isActive
+      ? "border-[var(--primary)] text-[var(--primary)] cursor-default"
+      : "border-transparent hover:bg-[var(--second-bg)]"
+  }`}
       >
         {item.label}
       </Link>

@@ -35,7 +35,7 @@ function Dashboard() {
 
           <div className="flex flex-nowrap flex-row gap-4">
             <Link
-              className="group inline-block rounded-full text-black bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:ring-3 focus:outline-hidden"
+              className="group inline-block rounded-full text-black bg-[var(--primary)] p-[2px] hover:text-white focus:ring-3 focus:outline-hidden"
               to="/"
             >
               <span className="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
@@ -44,7 +44,7 @@ function Dashboard() {
             </Link>
 
             <Link
-              className="group inline-block rounded-full text-black bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:ring-3 focus:outline-hidden"
+              className="group inline-block rounded-full text-black bg-[var(--primary)] p-[2px] hover:text-white focus:ring-3 focus:outline-hidden"
               to="/"
             >
               <span className="block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
