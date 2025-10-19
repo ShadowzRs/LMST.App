@@ -5,9 +5,9 @@ import "../../index.css";
 
 function Supplier() {
   return (
-    <div className="flex flex-row">
+    <div className="flex">
       <Sidebar />
-      <h1 className="text-black">List of Supplier</h1>
+      <h1 className="flex-1 text-black">List of Supplier</h1>
     </div>
   );
 }

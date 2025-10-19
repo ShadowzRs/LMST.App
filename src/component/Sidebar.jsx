@@ -110,10 +110,13 @@ function SidebarItem({ item }) {
 
 export default function Sidebar() {
   return (
-    <section className="flex flex-col w-[13%] h-screen pt-5 bg-white border-r border-[var(--border-color)]">
-      <div className="px-4 py-6 justify-center">
-        <img src={Logo} className="h-21 object-contain mx-auto" />
-        <ul className="mt-6 space-y-1">
+    <section className="sticky top-0 h-screen flex-shrink-0 flex flex-col w-48 md:w-56 lg:w-60 pt-5 bg-white border-r border-[var(--border-color)] overflow-y-auto">
+      <div className="flex flex-col items-center px-4 py-6">
+        <img
+          src={Logo}
+          className="h-16 md:h-20 lg:h-24 object-contain mx-auto"
+        />
+        <ul className="mt-6 w-full space-y-1">
           {menuItems.map((item, index) => (
             <SidebarItem key={index} item={item} />
           ))}

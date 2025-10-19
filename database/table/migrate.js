@@ -1,14 +1,16 @@
-const fs = require("fs");
-const path = require("path");
-const Database = require("better-sqlite3");
+import fs from "fs";
+import path from "path";
+import Database from "better-sqlite3";
+import { fileURLToPath } from "url";
 
-// DB will live inside database/table/inventory.db
-const db = new Database(path.join(__dirname, "inventory.db"));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Improve performance and safety
+const dbPath = path.join(__dirname, "inventory.db");
+const db = new Database(dbPath);
+
 db.pragma("journal_mode = WAL");
 
-// Create migrations table if not exists
 db.prepare(
   `
   CREATE TABLE IF NOT EXISTS migrations (
@@ -19,9 +21,10 @@ db.prepare(
 `
 ).run();
 
-function runMigrations() {
-  // migrations folder is sibling to "table"
+export function runMigrations() {
   const migrationsDir = path.join(__dirname, "../migrations");
+  if (!fs.existsSync(migrationsDir)) return;
+
   const appliedMigrations = db
     .prepare("SELECT name FROM migrations")
     .all()
@@ -37,7 +40,8 @@ function runMigrations() {
       db.prepare("INSERT INTO migrations (name) VALUES (?)").run(file);
     }
   }
+
   console.log("All migrations applied");
 }
 
-module.exports = { db, runMigrations };
+export { db };

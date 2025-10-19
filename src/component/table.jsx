@@ -1,60 +1,128 @@
 import React from "react";
 
+const typeColors = {
+  Restock: "green",
+  Dispatch: "red",
+  Return: "blue",
+};
+
+const typeSigns = {
+  Restock: "+",
+  Return: "-",
+  Dispatch: "-",
+};
+
 const Table = ({ columns }) => {
   // dummy data for now
   const data = [
     {
-      name: "Nandor the Relentless",
-      dob: "04/06/1262",
-      role: "Vampire Warrior",
-      salary: "$0",
+      type: "Restock",
+      name: "Paracetamol 500mg",
+      sku: "MED-001",
+      category: "Analgesic",
+      unit: "Tablet",
+      quantity: "100",
+      date: "2025-10-19",
+      reason: "New shipment",
     },
     {
-      name: "Laszlo Cravensworth",
-      dob: "19/10/1678",
-      role: "Vampire Gentleman",
-      salary: "$0",
+      type: "Dispatch",
+      name: "Amoxicillin 250mg",
+      sku: "MED-002",
+      category: "Antibiotic",
+      unit: "Capsule",
+      quantity: "50",
+      date: "2025-10-18",
+      reason: "Customer order #1234",
     },
     {
-      name: "Nadja",
-      dob: "15/03/1593",
-      role: "Vampire Seductress",
-      salary: "$0",
+      type: "Restock",
+      name: "Vitamin C 1000mg",
+      sku: "MED-003",
+      category: "Vitamin",
+      unit: "Tablet",
+      quantity: "200",
+      date: "2025-10-17",
+      reason: "New shipment",
     },
     {
-      name: "Colin Robinson",
-      dob: "01/09/1971",
-      role: "Energy Vampire",
-      salary: "$53,000",
+      type: "Return",
+      name: "Ibuprofen 200mg",
+      sku: "MED-004",
+      category: "Analgesic",
+      unit: "Tablet",
+      quantity: "30",
+      date: "2025-10-16",
+      reason: "Purchase return due to near-expiry stock"
     },
     {
-      name: "Guillermo de la Cruz",
-      dob: "18/11/1991",
-      role: "Familiar/Vampire Hunter",
-      salary: "$10,000",
+      type: "Dispatch",
+      name: "Cough Syrup 100ml",
+      sku: "MED-005",
+      category: "Expectorant",
+      unit: "Bottle",
+      quantity: "75",
+      date: "2025-10-15",
+      reason: "Customer order #6789",
     },
   ];
 
   return (
-    <div className="overflow-x-auto rounded border border-gray-300 shadow-sm">
-      <table className="min-w-full divide-y-2 divide-gray-200">
-        <thead className="ltr:text-left rtl:text-right">
+    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <table className="min-w-full divide-y divide-slate-200">
+        <thead className="ltr:text-left rtl:text-right bg-slate-50">
           <tr className="*:font-medium *:text-gray-900">
             {columns.map((col, index) => (
-              <th key={index} className="px-3 py-2 whitespace-nowrap">
+              <th
+                key={index}
+                className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500"
+              >
                 {col}
               </th>
             ))}
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-gray-200">
+        <tbody className="divide-y divide-slate-200">
           {data.map((row, index) => (
-            <tr key={index} className="*:text-gray-900 *:first:font-medium">
-              <td className="px-3 py-2 whitespace-nowrap">{row.name}</td>
-              <td className="px-3 py-2 whitespace-nowrap">{row.dob}</td>
-              <td className="px-3 py-2 whitespace-nowrap">{row.role}</td>
-              <td className="px-3 py-2 whitespace-nowrap">{row.salary}</td>
+            <tr key={index} className="hover:bg-slate-50">
+              <td className="whitespace-nowrap px-6 py-4 text-sm font-medium">
+                <span
+                  className={`inline-flex items-center rounded-full bg-${
+                    typeColors[row.type]
+                  }-100 px-2.5 py-0.5 text-xs font-medium text-${
+                    typeColors[row.type]
+                  }-800`}
+                >
+                  {row.type}
+                </span>
+              </td>
+              <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-900">
+                {row.name}
+              </td>
+              <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                {row.sku}
+              </td>
+              <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                {row.category}
+              </td>
+              <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                {row.unit}
+              </td>
+              <td
+                className={`whitespace-nowrap px-6 py-4 text-sm font-medium text-${
+                  typeColors[row.type]
+                }-600`}
+              >
+                {typeSigns[row.type]}
+                {row.quantity}
+              </td>
+              <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                {row.date}
+              </td>
+              <td className="max-w-[200px] truncate whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                {row.reason}
+              </td>
             </tr>
           ))}
         </tbody>

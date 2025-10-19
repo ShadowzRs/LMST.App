@@ -1,5 +1,5 @@
-const { ipcMain } = require("electron");
-const { db } = require("../../database/table/migrate");
+import { ipcMain } from "electron";
+import { db } from "../../database/table/migrate.js";
 
 function registerSupplierHandlers() {
   ipcMain.handle("add-supplier", (event, supplier) => {
@@ -15,4 +15,4 @@ function registerSupplierHandlers() {
   });
 }
 
-module.exports = { registerSupplierHandlers };
+export default registerSupplierHandlers;

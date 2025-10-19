@@ -1,12 +1,14 @@
-const { app, BrowserWindow } = require("electron");
-const path = require("path");
+import { app, BrowserWindow } from "electron";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
 
-// Import migrations & db
-const { runMigrations } = require("./database/table/migrate");
+// Import migrations &  IPC handlers
+import { runMigrations } from "./database/table/migrate.js";
+import registerInventoryHandlers from "./src/ipc/inventoryHandlers.js";
+import registerSupplierHandlers from "./src/ipc/supplierHandlers.js";
 
-// Import IPC handlers
-const { registerInventoryHandlers } = require("./src/ipc/inventoryHandlers");
-const { registerSupplierHandlers } = require("./src/ipc/supplierHandlers");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 function createWindow() {
   const win = new BrowserWindow({
